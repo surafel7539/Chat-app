@@ -2,13 +2,13 @@ import express from 'express'
 
 export const authroutes = express.Router()
 
-authroutes.get('/signup', (req, res) =>{
-    res.send('signup point')
+authroutes.get('/recieved', (req, res) =>{
+    res.send('recieved point')
 })
-authroutes.get('/login', (req, res) =>{
-    res.send('login point')
+authroutes.get('/sent', (req, res) =>{
+    res.send('sent point')
 })
-authroutes.get('/logout', (req, res) =>{
-    res.send('logout point')
+authroutes.get('/deleted', (req, res) =>{
+    res.send('deleted point')
 })
 
