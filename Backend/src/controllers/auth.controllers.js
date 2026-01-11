@@ -1,6 +1,10 @@
 import User from "../modules/User.js"
 import bcrypt from 'bcrypt'
 import generateToken  from "../LIB/utils.js"
+import { sendWelcomeEmail } from "../emails/emailHandlers.js"
+import 'dotenv/config'
+import {ENV} from '../LIB/env.js'
+
 
 export const signup = async (req, res) =>{
     const {username, email, password} = req.body
@@ -41,6 +45,12 @@ export const signup = async (req, res) =>{
                 email:newUser.email,
                 profilepic:newUser.profilepic
             })
+
+            try {
+                await sendWelcomeEmail(newUser.email, newUser.name,ENV.CLIENT_URL)
+            } catch (error) {
+                console.error(`Error sending the email: ${error}`);
+            }
         }else{
             res.status(400).json({message:"invalid user data"})
         }
@@ -50,3 +60,37 @@ export const signup = async (req, res) =>{
         
     }
 }
+
+export const login  = async (req, res) => {
+    const { email, password } = req.body
+
+    try {
+        const user = await User.findOne({email})
+
+        if(!user) return res.status(400).json({message:"Invalid input"})
+        
+        const isPasswordCorrect = await bcrypt.compare(password, user.password) 
+        if(!isPasswordCorrect) return res.status(400).json({message:"Invalid input"})
+
+        generateToken(user._id, res)
+
+         res.status(200).json({
+                _id:user._id,
+                username:user.username,
+                email:user.email,
+                profilepic:user.profilepic
+            })
+        
+    } catch (error) {
+        console.error('Error in login process', error);
+        res.status(500).json({message:"Internal Server Error"})
+        
+    }
+}
+export const logout = (req, res) => {
+    
+    res.cookie("jwt", "", { maxAge: 0});
+    
+    
+    res.status(200).json({ message: "User logged out successfully" });
+};

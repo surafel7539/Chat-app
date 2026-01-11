@@ -1,14 +1,14 @@
 import express from 'express'
 
-export const authroutes = express.Router()
+export const messageRoutes = express.Router()
 
-authroutes.get('/recieved', (req, res) =>{
+messageRoutes.get('/recieved', (req, res) =>{
     res.send('recieved point')
 })
-authroutes.get('/sent', (req, res) =>{
+messageRoutes.get('/sent', (req, res) =>{
     res.send('sent point')
 })
-authroutes.get('/deleted', (req, res) =>{
+messageRoutes.get('/deleted', (req, res) =>{
     res.send('deleted point')
 })
 

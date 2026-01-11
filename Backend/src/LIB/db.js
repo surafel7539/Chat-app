@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
+import { ENV } from './env.js';
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.MONGO_DB)
+        const conn = await mongoose.connect(ENV.MONGO_DB)
         console.log('MONGODB connected succefully :', conn.connection.host)
     } catch (error) {
         console.error('Failed to connect to MONGODB', error);
@@ -11,4 +12,4 @@ const connectDB = async () => {
         
     }
 }
-export default connectDB
+export default connectDB;

@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"
 
 const generateToken = (userId, res) => {
   const token = jwt.sign(
@@ -11,7 +11,7 @@ const generateToken = (userId, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     httpOnly: true,
     sameSite: "strict",
-    secure: process.env.NODE_ENV !== "development",
+    secure: process.env.NODE_ENV === "development" ? false : true,
   });
 
   return token;
