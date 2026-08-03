@@ -4,7 +4,7 @@ import generateToken  from "../LIB/utils.js"
 import { sendWelcomeEmail } from "../emails/emailHandlers.js"
 import 'dotenv/config'
 import {ENV} from '../LIB/env.js'
-
+import cloudinary from "../LIB/cloudinary.js"
 
 export const signup = async (req, res) =>{
     const {username, email, password} = req.body
@@ -36,9 +36,10 @@ export const signup = async (req, res) =>{
         if(newUser){
             await newUser.save()
 
+            // 1. Generate token and attach the cookie completely
             generateToken(newUser._id, res)
             
-
+            // 2. Send the HTTP response immediately following the header attach
             res.status(201).json({
                 _id:newUser._id,
                 username:newUser.username,
@@ -47,17 +48,17 @@ export const signup = async (req, res) =>{
             })
 
             try {
-                await sendWelcomeEmail(newUser.email, newUser.name,ENV.CLIENT_URL)
+                // ✅ FIX: Changed 'newUser.name' to 'newUser.username' to match your schema parameters
+                await sendWelcomeEmail(newUser.email, newUser.username, ENV.CLIENT_URL)
             } catch (error) {
-                console.error(`Error sending the email: ${error}`);
+                console.error(`Error sending welcome email: ${error}`);
             }
-        }else{
+        } else {
             res.status(400).json({message:"invalid user data"})
         }
     } catch (error) {
-        console.error("an error occured:", error);
+        console.error("an error occured during signup:", error);
         res.status(500).json({message:"an error occured"})
-        
     }
 }
 
@@ -65,36 +66,57 @@ export const login  = async (req, res) => {
     const { email, password } = req.body
 
     try {
-        const user = await User.findOne({email})
+        // Validation check to prevent empty values hitting the DB handler
+        if (!email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
 
+        const user = await User.findOne({email})
         if(!user) return res.status(400).json({message:"Invalid input"})
         
         const isPasswordCorrect = await bcrypt.compare(password, user.password) 
         if(!isPasswordCorrect) return res.status(400).json({message:"Invalid input"})
 
+        // 3. Bake cookie explicitly before outputting payload context 
         generateToken(user._id, res)
 
-         res.status(200).json({
-                _id:user._id,
-                username:user.username,
-                email:user.email,
-                profilepic:user.profilepic
-            })
+        return res.status(200).json({
+            _id:user._id,
+            username:user.username,
+            email:user.email,
+            profilepic:user.profilepic
+        })
         
     } catch (error) {
-        console.error('Error in login process', error);
+        console.error('Error in login process:', error);
         res.status(500).json({message:"Internal Server Error"})
-        
     }
 }
+
 export const logout = (req, res) => {
-    
-    res.cookie("jwt", "", { maxAge: 0});
-    
-    
+    // Force browser to destroy the tracking cookie configuration safely
+    res.cookie("jwt", "", { maxAge: 0, httpOnly: true, sameSite: "lax" });
     res.status(200).json({ message: "User logged out successfully" });
 };
 
 export const updateProfile = async (req, res) => {
+  try {
+    const { profilePic } = req.body;
+    if (!profilePic) return res.status(400).json({ message: "Profile pic is required" });
 
-}
+    const userId = req.user._id;
+
+    const uploadResponse = await cloudinary.uploader.upload(profilePic);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profilePic: uploadResponse.secure_url },
+      { new: true }
+    );
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log("Error in update profile:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

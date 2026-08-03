@@ -1,9 +1,12 @@
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
+import { ENV } from "../LIB/env.js"; 
 
 const generateToken = (userId, res) => {
+
+  
   const token = jwt.sign(
     { userId },
-    process.env.JWT_SECRET,
+    ENV.JWT_SECRET, 
     { expiresIn: "7d" }
   );
 
@@ -11,7 +14,7 @@ const generateToken = (userId, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     httpOnly: true,
     sameSite: "strict",
-    secure: process.env.NODE_ENV === "development" ? false : true,
+    secure: false, // 👈 FIX: Explicitly set to false so localhost HTTP accepts it!
   });
 
   return token;
