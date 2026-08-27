@@ -7,7 +7,7 @@ import ProfileHeader from '../components/ProfileHeader';
 import ActiveTabSwitch from '../components/ActiveTabSwitch';
 import ChatContainer from '../components/ChatContainer';
 import NoConvPlaceHolder from '../components/NoConvPlaceHolder';
-import LoadingElement from '../components/loadingElement';
+import LoadingElement from '../components/LoadingElement';
 import ChatList from '../components/ChatList';
 import ContactsList from '../components/ContactsList';
 
