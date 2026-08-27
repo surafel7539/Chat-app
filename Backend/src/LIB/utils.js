@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import { ENV } from "./env";
+
 const generateToken = (userId, res) => {
   const token = jwt.sign(
     { userId },
