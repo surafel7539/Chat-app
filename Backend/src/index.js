@@ -13,10 +13,15 @@ const PORT = ENV.PORT || 5000;
 const app = express();
 
 // 🚀 CRITICAL RE-ORDER FIX: Place CORS and Cookie Parser at the absolute top!
-app.use(cors({
-  origin: 'http://localhost:5173', 
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://chatapp123-six.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(cookieParser()); // 👈 This MUST sit above json() and urlencoded() configurations!
 
