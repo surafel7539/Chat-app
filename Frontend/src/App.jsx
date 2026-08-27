@@ -5,7 +5,7 @@ import SignUp from './pages/SignUp'
 import LogIn from './pages/LogIn'
 import { useAuthStore } from './store/useAuthStore'
 import LoadingElement from './components/loadingElement'
-import toast, { Toaster } from 'react-hot-toast';
+import  { Toaster } from 'react-hot-toast';
 
 function App() {
   const { authUser, isCheckingAuth, checkAuth } = useAuthStore()
