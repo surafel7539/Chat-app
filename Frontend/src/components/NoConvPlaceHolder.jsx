@@ -3,7 +3,7 @@ import { MessageCircleIcon } from 'lucide-react'
 
 function NoConvPlaceHolder() {
   return (
-    <div className='flex flex-col items-center text-center justify-center'>
+    <div className='flex flex-col items-center justify-center h-full text-center p-6'>
 
     
       <div className='h-12 w-12 flex justify-center items-center p-2 bg-cyan-500/10 rounded-2xl'>
