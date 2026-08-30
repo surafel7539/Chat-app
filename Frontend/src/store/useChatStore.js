@@ -108,9 +108,10 @@ export const useChatStore = create((set, get) => ({
   if (!socket) return;
 
   socket.on("newMessage", (newMessage) => {
-    set((state) => ({
-      messages: [...state.messages, newMessage],
-    }));
+    const currentMessages = get().messages
+    set({
+      messages: [...currentMessages, newMessage],
+    });
   });
 
   socket.on("messageDeleted", (messageId) => {
