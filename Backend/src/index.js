@@ -7,10 +7,11 @@ import authRoutes from "./routes/auth.routes.js";
 import { messageRoutes } from "./routes/messages.routes.js";
 import connectDB from "./LIB/db.js";
 import { ENV } from "./LIB/env.js";
+import { server, app } from "./LIB/socketio.js";
 
 const __dirname = path.resolve();
 const PORT = ENV.PORT || 5000;
-const app = express();
+
 
 // 🚀 CRITICAL RE-ORDER FIX: Place CORS and Cookie Parser at the absolute top!
 app.use(
@@ -45,7 +46,7 @@ if (ENV.NODE_ENV === "production") {
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log("Server running on port: " + PORT);
     });
   } catch (error) {
