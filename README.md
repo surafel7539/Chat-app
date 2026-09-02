@@ -1,4 +1,4 @@
-# Telegram Clone / Chat App 💬
+# Telegram-inspired Chat Application 💬
 
 A full-stack real-time chat application inspired by Telegram, built with **React.js** for the frontend and **Express.js** for the backend.
 
@@ -151,11 +151,4 @@ project/
 
 This project is a completed full-stack Telegram-inspired chat application featuring real-time communication and a modern responsive interface.
 
-## 📜 License
 
-This project is for educational and portfolio purposes.
-
-```
-
-One small thing I'd change from your original README: **don't call it “a clone of Telegram” too strongly**. “Telegram-inspired chat application” sounds more professional and makes it clear you're not claiming it's the actual Telegram app.
-```
