@@ -9,7 +9,7 @@ The application supports real-time messaging, online/offline presence, authentic
 * JWT Authentication
 * Real-time Messaging with Socket.io
 * Online/Offline Presence Indicators
-* 📧 Welcome Emails on Signup with Resend(but it can only send it to my email, sorry😅)
+* Welcome Emails on Signup with Resend(but it can only send it to my email, sorry😅)
 * Image Uploads with Cloudinary
 * REST API with Express.js
 * MongoDB for Data Persistence
