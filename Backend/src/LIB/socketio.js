@@ -32,7 +32,7 @@ io.on("connection",(socket) => {
 
     userSocketMap[userId]= socket.id
 
-    // io.emit() is used to send events to all connected clients
+    
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
     socket.on("disconnect", () =>{

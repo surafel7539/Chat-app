@@ -5,7 +5,7 @@ export const sendWelcomeEmail = async (email, name, clientURL) => {
     try {
         const { data, error } = await resendClient.emails.send({
             from: `${sender.name} <${sender.email}>`,
-            to: [email], // MUST be array
+            to: [email], 
             subject: "Welcome to Chatify",
             html: createWelcomeEmailTemplate(sender.name, clientURL)
         });

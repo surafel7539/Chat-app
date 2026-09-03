@@ -13,7 +13,7 @@ const __dirname = path.resolve();
 const PORT = ENV.PORT || 5000;
 
 
-// 🚀 CRITICAL RE-ORDER FIX: Place CORS and Cookie Parser at the absolute top!
+
 app.use(
   cors({
     origin: [
@@ -24,17 +24,17 @@ app.use(
   })
 );
 
-app.use(cookieParser()); // 👈 This MUST sit above json() and urlencoded() configurations!
+app.use(cookieParser()); 
 
-// Standard body parameter transformers
+
 app.use(express.json({ limit: "10mb" })); 
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
-// Routes
+
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// Ready for deployment
+
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 

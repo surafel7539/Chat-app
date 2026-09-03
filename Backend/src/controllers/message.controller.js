@@ -76,7 +76,7 @@ export const getChatPartners = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
 
-    // find all the messages where the logged-in user is either sender or receiver
+    
     const messages = await Message.find({
       $or: [{ senderId: loggedInUserId }, { receiverId: loggedInUserId }],
     });
@@ -112,7 +112,7 @@ export const deleteMessage = async (req, res) => {
       });
     }
 
-    // Only the sender can delete the message
+    
     if (message.senderId.toString() !== userId.toString()) {
       return res.status(403).json({
         error: "You can only delete your own messages",
@@ -121,7 +121,7 @@ export const deleteMessage = async (req, res) => {
 
     await Message.findByIdAndDelete(messageId);
 
-    // Notify the other user through Socket.IO
+    
     const receiverSocketId = getReceiverSocketId(
       message.receiverId.toString()
     );

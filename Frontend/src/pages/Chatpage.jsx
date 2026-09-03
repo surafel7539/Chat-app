@@ -1,19 +1,16 @@
 import React from 'react'
-import { useAuthStore } from '../store/useAuthStore'
 import { useChatStore } from '../store/useChatStore';
-import { MessageCircleIcon, LockIcon, MailIcon, UserIcon, LoaderIcon } from "lucide-react";
 import Border from '../components/Border'
 import ProfileHeader from '../components/ProfileHeader';
 import ActiveTabSwitch from '../components/ActiveTabSwitch';
 import ChatContainer from '../components/ChatContainer';
 import NoConvPlaceHolder from '../components/NoConvPlaceHolder';
-import LoadingElement from '../components/LoadingElement';
 import ChatList from '../components/ChatList';
 import ContactsList from '../components/ContactsList';
 
 function Chatpage() {
   
-  const{allContacts, chats, messages, isUserLoading, activeTab, selectedUser, getAllContacts, getChats}= useChatStore()
+  const{ activeTab, selectedUser}= useChatStore()
   
  
 
@@ -23,7 +20,7 @@ function Chatpage() {
   return (
     <div className='relative w-full max-w-6xl h-[700px]  '>
       <Border>
-          {/*Left Side*/}
+          
         <div className='w-80 bg-slate-800/50 backdrop-blur-sm flex flex-col '>
           <ProfileHeader/>
           <ActiveTabSwitch/>
@@ -33,7 +30,7 @@ function Chatpage() {
           </div>
         </div>
 
-        {/* Right Side */}
+        
 
         <div className='flex-1 flex flex-col  bg-slate-900/50 backdrop-blur-sm'>
 

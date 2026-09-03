@@ -36,10 +36,10 @@ export const signup = async (req, res) =>{
         if(newUser){
             await newUser.save()
 
-            // 1. Generate token and attach the cookie completely
+            
             generateToken(newUser._id, res)
             
-            // 2. Send the HTTP response immediately following the header attach
+            
             res.status(201).json({
                 _id:newUser._id,
                 username:newUser.username,
@@ -48,7 +48,7 @@ export const signup = async (req, res) =>{
             })
 
             try {
-                // ✅ FIX: Changed 'newUser.name' to 'newUser.username' to match your schema parameters
+               
                 await sendWelcomeEmail(newUser.email, newUser.username, ENV.CLIENT_URL)
             } catch (error) {
                 console.error(`Error sending welcome email: ${error}`);
@@ -66,7 +66,7 @@ export const login  = async (req, res) => {
     const { email, password } = req.body
 
     try {
-        // Validation check to prevent empty values hitting the DB handler
+        
         if (!email || !password) {
             return res.status(400).json({ message: "All fields are required" });
         }
@@ -77,7 +77,7 @@ export const login  = async (req, res) => {
         const isPasswordCorrect = await bcrypt.compare(password, user.password) 
         if(!isPasswordCorrect) return res.status(400).json({message:"Invalid input"})
 
-        // 3. Bake cookie explicitly before outputting payload context 
+        
         generateToken(user._id, res)
 
         return res.status(200).json({
@@ -94,7 +94,7 @@ export const login  = async (req, res) => {
 }
 
 export const logout = (req, res) => {
-    // Force browser to destroy the tracking cookie configuration safely
+    
     res.cookie("jwt", "", { maxAge: 0, httpOnly: true, sameSite: "lax" });
     res.status(200).json({ message: "User logged out successfully" });
 };

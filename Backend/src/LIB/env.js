@@ -6,7 +6,7 @@ export const ENV = {
     JWT_SECRET: process.env.JWT_SECRET,
     MONGO_DB: process.env.MONGO_DB,
 
-    // EMAIL
+   
     RESEND_API_KEY: process.env.RESEND_APIKEY,
     EMAIL_FROM: process.env.EMAIL_FROM,
     EMAIL_FROM_NAME: process.env.EMAIL_FROM_NAME,
