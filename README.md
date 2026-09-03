@@ -18,7 +18,7 @@ The application supports real-time messaging, online/offline presence, authentic
 * Zustand for State Management
 * Deployment with Vercel for the Frontend and Render For the Backend
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 ### Frontend
 
@@ -103,7 +103,7 @@ ARCJET_ENV=development
 
 This project is a completed full-stack Telegram-Clone/Chat Application featuring real-time communication and a modern responsive interface.
 
-To the people reading this:
-  I spent over 20hrs making this it is my first fullstack website and my first time using vercel and render too, but I couldnt have come up with the design by my self so the design is     inspired by another developer called: burakorkmez, He made a Youtube video you can see it using this link: https://youtu.be/bR4b_Io8shE and The repo is in his description, but i built   the backend by my self it was challenging but I did what I could, so I hope it is good enough.
+## To the people reading this:
+ * I spent over 20hrs making this it is my first fullstack website and my first time using vercel and render too, but I couldnt have come up with the design by my self so the design is     inspired by another developer called: burakorkmez, He made a Youtube video you can see it using this link: https://youtu.be/bR4b_Io8shE and The repo is in his description, but i         built   the backend by my self it was challenging but I did what I could, so I hope it is good enough.
 
 
